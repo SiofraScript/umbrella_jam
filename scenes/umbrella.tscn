@@ -1,18 +1,20 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://imgs/player_sprites/umbrella.png" type="Texture" id=1]
+[ext_resource path="res://imgs/player_sprites/karakasa.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 80 )
+extents = Vector2( 35, 32.25 )
 
 [node name="umbrella" type="Area2D"]
 collision_layer = 4
 collision_mask = 16
 
 [node name="blockbox" type="CollisionShape2D" parent="."]
-position = Vector2( 47, 0 )
+position = Vector2( 24, -0.25 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 33, 0 )
+position = Vector2( 48, 3 )
+rotation = 1.5708
+scale = Vector2( 2.25052, 2.6902 )
 texture = ExtResource( 1 )
