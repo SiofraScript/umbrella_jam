@@ -3,7 +3,8 @@ extends Node
 
 onready var p_info = Vector2()
 onready var anim_info = 'start'
-
+var deaths = 0
+var currentLevel = "res://scenes/TestWorld.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
