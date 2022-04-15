@@ -162,3 +162,11 @@ func direction_input_timer(is_input = false):
 			current_speed = walk_speed
 	else:
 		direction_input_check = 5
+
+func die():
+	Global.deaths = Global.deaths + 1
+	print(Global.deaths)
+	var _unused = get_tree().change_scene(Global.currentLevel)
+
+func _on_hitbox_area_entered(area):
+	die()
