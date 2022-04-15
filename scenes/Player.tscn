@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://imgs/player_sprites/idle.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://imgs/player_sprites/falling.png" type="Texture" id=3]
+[ext_resource path="res://imgs/player_sprites/floating.png" type="Texture" id=4]
+[ext_resource path="res://imgs/player_sprites/sliding.png" type="Texture" id=5]
+[ext_resource path="res://imgs/player_sprites/running.png" type="Texture" id=6]
+[ext_resource path="res://imgs/player_sprites/walking.png" type="Texture" id=7]
+[ext_resource path="res://imgs/player_sprites/jumping.png" type="Texture" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "floating",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "changedir",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "sliding",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 32 )
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+position = Vector2( 511, 366 )
+script = ExtResource( 2 )
+walk_speed = 250
+run_speed = 450
+grav_strength = 300
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="RightCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 36, 0 )
+
+[node name="LeftCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -36, 0 )
+
+[node name="FloorCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 34 )
