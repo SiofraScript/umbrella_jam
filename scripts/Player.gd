@@ -102,10 +102,10 @@ func get_input(_delta):
 			is_floating = true
 		else:
 			is_floating = false
-					
-	if Input.is_action_just_released("jump"):
+	else:
 		jump_height_timer = 0
-		is_floating = false
+		is_floating = false	
+		
 		
 		
 	if(!on_ground):
@@ -136,10 +136,16 @@ func get_input(_delta):
 	
 	if !is_floating:
 		$umbrella.visible=true
+		# TODO: move umbrella rotation logic to umbrella object itself
+		# WE MIGHT want to change umbrella sprite for left/right, etc.
+		# to have its tongue affected by gravity, etc.
+		#$umbrella/blockbox.disabled = false
 		if !(on_ground and umbrella_input == Vector2.DOWN):
 			$umbrella.rotation = umbrella_input.angle()
 	else:
 		$umbrella.visible=false
+		$umbrella.rotation = Vector2.UP.angle()
+		#$umbrella/blockbox.disabled = true
 		
 	
 func animation_state_handler(vel_vector):

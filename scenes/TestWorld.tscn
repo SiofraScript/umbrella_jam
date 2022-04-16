@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://imgs/tiles/tileset_grass64x64.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/upheavtt.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scripts/debug_label.gd" type="Script" id=4]
 [ext_resource path="res://scripts/Label2.gd" type="Script" id=5]
+[ext_resource path="res://scenes/DialogTriggerBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/PauseControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=10]
@@ -180,3 +182,9 @@ bullet_velocity = Vector2( -5, 0 )
 [node name="bullet" parent="." instance=ExtResource( 10 )]
 position = Vector2( 872, 422 )
 velocity = Vector2( -5, 0 )
+
+[node name="UI" parent="." instance=ExtResource( 7 )]
+
+[node name="DialogTriggerBox" parent="." instance=ExtResource( 6 )]
+position = Vector2( 578, 420 )
+scale = Vector2( 1, 100 )
