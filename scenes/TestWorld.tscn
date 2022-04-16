@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 
 [ext_resource path="res://imgs/tiles/tileset_grass64x64.png" type="Texture" id=1]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scripts/Label2.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/PauseControl.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/ForwardShootEnemy.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
@@ -173,3 +175,11 @@ tile_data = PoolIntArray( 262149, 2, 0, 327685, 2, 0, 393221, 2, 0, 393222, 3, 0
 [node name="PauseControl" parent="." instance=ExtResource( 9 )]
 pause_mode = 2
 
+[node name="Enemy2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 727, 431 )
+scale = Vector2( -1, 1 )
+bullet_velocity = Vector2( -5, 0 )
+
+[node name="bullet" parent="." instance=ExtResource( 10 )]
+position = Vector2( 872, 422 )
+velocity = Vector2( -5, 0 )
