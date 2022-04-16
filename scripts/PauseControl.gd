@@ -4,14 +4,14 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var soft_pause = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func _physics_process(_delta):
-	# input buffer logic
+	######### input buffer logic #############
+	# needs to be updated even when paused
 	if Input.is_action_just_pressed("left"):
 		Global.umbrellaPressOrder.erase(-1)
 		Global.movementPressOrder.append(-1)
@@ -34,7 +34,8 @@ func _physics_process(_delta):
 		Global.movementPressOrder.erase(0)
 		Global.movementPressOrder.push_front(0) #default if nothing pressed
 	
-	###########
+	########### umbrella input buffer ###############
+	# needs to be updated even when paused
 	if Input.is_action_just_pressed("umbrella_left"):
 		Global.umbrellaPressOrder.erase(Vector2.LEFT)
 		Global.umbrellaPressOrder.append(Vector2.LEFT)
@@ -64,17 +65,45 @@ func _physics_process(_delta):
 		Global.umbrellaPressOrder.erase(Vector2.UP)
 		Global.umbrellaPressOrder.push_front(Vector2.UP) # default if nothing pressed
 
-	if Input.is_action_just_pressed("pause"):
-		if !get_tree().paused:
+	# handle pause inputs iff we are not showing dialog
+	if Global.show_dialog:
+		get_tree().paused = true
+		
+		
+	elif Global.soft_pause:
+		# pause controls for soft pause
+		# pause button enters hard pause
+		# reset resets
+		# most other buttons unpause
+		if Input.is_action_just_pressed("pause"):
 			get_tree().paused = true
-			$PauseSound.play(0)
-			# TODO PAUSE BGM
-		else:
+			$PauseSound.play(0) # pause sound
+			# TODO pause BGM
+			Global.hard_pause = true
+			Global.soft_pause = false
+		elif Input.is_action_just_pressed("reset"):
+			var _unused = get_tree().change_scene(Global.currentLevel)
+		elif (Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down") || Input.is_action_just_pressed("jump")):
 			get_tree().paused = false
-			$PauseSound.play(0) # unpause sound
-			# TODO unpause BGM
-	elif Input.is_action_just_pressed("reset"):
-		var _unused = get_tree().change_scene(Global.currentLevel)
-	elif soft_pause && (Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down") || Input.is_action_just_pressed("jump")):
-		get_tree().paused = false
-		soft_pause = false
+			Global.soft_pause = false
+	else:
+		
+		# default pass control
+		if Input.is_action_just_pressed("pause"):
+			if Global.hard_pause:
+				get_tree().paused = false
+				$PauseSound.play(0) # Unpause sound
+				Global.hard_pause = false
+				# TODO UNPAUSE BGM
+			else:
+				get_tree().paused = true
+				$PauseSound.play(0)
+				Global.hard_pause = true
+				# TODO PAUSE BGM
+		elif Input.is_action_just_pressed("reset"):
+			var _unused = get_tree().change_scene(Global.currentLevel)
+			get_tree().paused = true
+			Global.soft_pause = true
+			Global.hard_pause = false
+		
+		
