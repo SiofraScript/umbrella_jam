@@ -1,18 +1,75 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://imgs/player_sprites/idle.png" type="Texture" id=1]
+[ext_resource path="res://imgs/player_sprites/kogasa.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://imgs/player_sprites/falling.png" type="Texture" id=3]
 [ext_resource path="res://imgs/player_sprites/floating.png" type="Texture" id=4]
 [ext_resource path="res://imgs/player_sprites/sliding.png" type="Texture" id=5]
-[ext_resource path="res://imgs/player_sprites/running.png" type="Texture" id=6]
+[ext_resource path="res://imgs/player_sprites/kogasa_run.png" type="Texture" id=6]
 [ext_resource path="res://imgs/player_sprites/walking.png" type="Texture" id=7]
 [ext_resource path="res://imgs/player_sprites/jumping.png" type="Texture" id=8]
 [ext_resource path="res://scenes/umbrella.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=10]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 42, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 84, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 126, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 168, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 210, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 252, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 294, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 336, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 378, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 6 )
+region = Rect2( 42, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 6 )
+region = Rect2( 84, 0, 42, 57 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 6 )
+region = Rect2( 126, 0, 42, 57 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
@@ -22,7 +79,27 @@ animations = [ {
 "name": "changedir",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "floating",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "sliding",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "run",
 "speed": 5.0
@@ -31,30 +108,10 @@ animations = [ {
 "loop": true,
 "name": "falling",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "floating",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "sliding",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+extents = Vector2( 20.5, 30.5 )
 
 [sub_resource type="CircleShape2D" id=3]
 
@@ -67,10 +124,12 @@ run_speed = 450
 grav_strength = 300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = 1
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.5, -1.5 )
 shape = SubResource( 2 )
 
 [node name="RightCast" type="RayCast2D" parent="."]
@@ -93,6 +152,13 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="umbrella" parent="hitbox" instance=ExtResource( 9 )]
-position = Vector2( 34, -8 )
+position = Vector2( 13, -1 )
+scale = Vector2( 0.920005, 0.920005 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_smoothed = true
+smoothing_enabled = true
+script = ExtResource( 10 )
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

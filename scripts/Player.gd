@@ -151,7 +151,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	animation_state_handler(velocity)
 	Global.p_info = velocity
-	print($FloorCast.is_colliding(), can_jump)
+	#print($FloorCast.is_colliding(), can_jump)
 
 func direction_input_timer(is_input = false):
 	if !is_input:
