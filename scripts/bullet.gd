@@ -10,11 +10,11 @@ func _physics_process(_delta):
 	position = position + velocity
 
 
-func _on_bullet_body_entered(body):
+func _on_bullet_body_entered(_body):
 	# we collided with the player or the stage
 	queue_free()
 
 
-func _on_bullet_area_entered(area):
+func _on_bullet_area_entered(_area):
 	# we collided with the player's umbrella, most likely.
 	queue_free()

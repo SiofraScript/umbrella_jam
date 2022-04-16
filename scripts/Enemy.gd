@@ -21,5 +21,5 @@ func die():
 
 	
 
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	die()

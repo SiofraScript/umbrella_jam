@@ -5,7 +5,6 @@ extends "res://scripts/Enemy.gd"
 # var a = 2
 export var fire_interval = 120
 export var initial_timer = 0
-export var bullet_type = "default"
 export var bullet_scale = 1
 export var bullet_velocity = Vector2.ZERO
 var timer = 0
@@ -25,4 +24,6 @@ func _physics_process(_delta):
 	timer = timer + 1
 	if timer >= fire_interval:
 		timer = 0
-		fire_bullet(bullet_type)
+		# bullet_type(s) are defined in a dictionary in the enemy base class...
+		# SORRY!
+		fire_bullet("default")

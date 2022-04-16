@@ -1,35 +1,52 @@
 extends KinematicBody2D
 
-export (int) var walk_speed = 175
-export (int) var run_speed = 300
-export (int) var grav_strength = 150
-export (int) var jump_strength = 250
+export (int) var walk_acc = 8
+export (int) var max_walk_speed = 100
+export (int) var default_max_fall_speed = 300
+export var groundfriction = 0.2
+export (int) var idle_speed_threshold = 10
 
-onready var current_speed = walk_speed
+export (int) var grav_strength = 50
+export (int) var default_jump_acceleration = 100
+export (int) var default_jump_height_timer = 30
+
+export var float_grav_strn_mult = 0.35
+export var cling_grav_strn_mult = 0.35
+export var jump_gravity_mult = 0.35
+export var jump_accel_tamper = 0.79
+
+
+var max_fall_speed = default_max_fall_speed
+
 onready var direction_input_check = 0
 onready var jump_height_timer = 0
-onready var jump_acceleration = 6
+onready var jump_acceleration = default_jump_acceleration
 onready var is_floating = false
 onready var is_wall_slide = false
+onready var is_idle = true
 onready var last_facing_left = false
 onready var last_slide_r = false
 onready var last_slide_l = false
 onready var can_jump = true
+var on_ground = true
 
 
 var velocity = Vector2()
 
-func get_input():
-	is_wall_slide = false
-	velocity = Vector2()
-	direction_input_timer(false)
+func get_input(_delta):
+	var x_input = Global.movementPressOrder[-1]
+	var umbrella_input = Global.umbrellaPressOrder[-1]
+	if on_ground and umbrella_input == Vector2.DOWN:
+		umbrella_input = Global.umbrellaPressOrder[-2]
 	
-	if($FloorCast.is_colliding()):
+	is_wall_slide = false
+	
+	on_ground = $FloorCast.is_colliding()
+	if(on_ground):
 		is_floating = false
 		last_slide_l = false
 		last_slide_r = false
-		if(jump_height_timer < 20):
-			can_jump = true
+		can_jump = true
 		
 	if($RightCast.is_colliding()):
 		if(Input.is_action_pressed("right")):
@@ -52,32 +69,36 @@ func get_input():
 		else:
 			is_wall_slide = false
 	
-	if Input.is_action_pressed("right"):
-		velocity.x += 1
-		direction_input_timer(true)
-	if Input.is_action_pressed("left"):
-		velocity.x -= 1
-		direction_input_timer(true)
-		
-	if jump_height_timer > 0:
-		velocity.y -= jump_acceleration * jump_strength
-		jump_height_timer -= 1
-		jump_acceleration *= 0.89
-		
-	if Input.is_action_pressed("cont_x"):
-			if current_speed < run_speed:
-				current_speed *= 1.015
-				velocity.x = velocity.x * current_speed
-			elif run_speed <= current_speed:
-				velocity.x = velocity.x * run_speed
-				jump_strength = 310
+	
+	if x_input != 0:
+		is_idle = false
+		velocity.x += x_input * walk_acc
+		velocity.x = clamp(velocity.x,-max_walk_speed,max_walk_speed)
 	else:
-		current_speed = walk_speed
-		jump_strength = 250
-		velocity.x = velocity.x * current_speed
+		velocity.x = lerp(velocity.x,0,groundfriction)
+		if (abs(velocity.x) < idle_speed_threshold) and on_ground:
+			is_idle = true
+		
+	if Input.is_action_just_pressed("jump"):
+		if(can_jump):
+			is_idle = false
+			if((last_slide_l or last_slide_r) and is_wall_slide):
+				return
+			if(!is_wall_slide and (last_slide_r and Input.is_action_pressed("left"))):
+				jump_height_timer = default_jump_height_timer
+				jump_acceleration = default_jump_acceleration
+			elif(!is_wall_slide and (last_slide_l and Input.is_action_pressed("right"))):
+				jump_height_timer = default_jump_height_timer
+				jump_acceleration = default_jump_acceleration
+			else:
+				jump_height_timer = default_jump_height_timer
+				jump_acceleration = default_jump_acceleration
+			velocity.y = 0
+				
+			can_jump = false
 		
 	if Input.is_action_pressed("jump"):
-		if(!$FloorCast.is_colliding()):
+		if(!on_ground and !is_wall_slide and velocity.y >=0):
 			is_floating = true
 		else:
 			is_floating = false
@@ -86,87 +107,82 @@ func get_input():
 		jump_height_timer = 0
 		is_floating = false
 		
-	if Input.is_action_just_pressed("jump"):
-		if(can_jump):
-			if((last_slide_l or last_slide_r) and is_wall_slide):
-				return
-			if(!is_wall_slide and (last_slide_r and Input.is_action_pressed("left"))):
-				jump_height_timer = 30
-				jump_acceleration = 6
-			elif(!is_wall_slide and (last_slide_l and Input.is_action_pressed("right"))):
-				jump_height_timer = 30
-				jump_acceleration = 6
-			else:
-				jump_height_timer = 30
-				jump_acceleration = 6
-				
-			can_jump = false
-			
-	if(!is_on_floor()):
+		
+	if(!on_ground):
 		if(is_floating == true):
-			velocity.y += (grav_strength * 0.35)
+			velocity.y += (grav_strength * float_grav_strn_mult)
+			can_jump = false
+			velocity.y = clamp(velocity.y,-INF,default_max_fall_speed * float_grav_strn_mult)
 		else:
 			if(is_wall_slide):
-				velocity.y += grav_strength * 0.6
+				velocity.y += (grav_strength * cling_grav_strn_mult)
+				can_jump = true
+				velocity.y = clamp(velocity.y,-INF,default_max_fall_speed * cling_grav_strn_mult)
+			elif jump_height_timer > 0:
+				velocity.y += grav_strength* jump_gravity_mult
+				can_jump = false
+				velocity.y = clamp(velocity.y,-INF,default_max_fall_speed * jump_gravity_mult)
 			else:
 				velocity.y += grav_strength
+				can_jump = false
+				velocity.y = clamp(velocity.y,-INF,default_max_fall_speed)
+	
+	if jump_height_timer > 0:
+		#print(jump_height_timer)
+		#print(delta)
+		velocity.y = velocity.y - jump_acceleration
+		jump_height_timer = jump_height_timer - 1
+		jump_acceleration = jump_acceleration * jump_accel_tamper
+	
+	if !is_floating:
+		$umbrella.visible=true
+		if !(on_ground and umbrella_input == Vector2.DOWN):
+			$umbrella.rotation = umbrella_input.angle()
+	else:
+		$umbrella.visible=false
 		
-
 	
 func animation_state_handler(vel_vector):
-	if (vel_vector.x == 0):
-		$AnimatedSprite.play("idle")
-	elif (vel_vector.x > 0 and vel_vector.x < 251):
-		$AnimatedSprite.play("walk")
-	elif (vel_vector.x > 251):
-		$AnimatedSprite.play("run")
-	elif (vel_vector.x < 0 and vel_vector.x > -251):
-		$AnimatedSprite.play("walk")
-	elif (vel_vector.x < 251):
-		$AnimatedSprite.play("run")
-		
-	if (vel_vector.y < 0):
-		$AnimatedSprite.play("jump")
-	elif (vel_vector.y > 0):
-		$AnimatedSprite.play("falling")
-		
-	if (is_floating):
-		$AnimatedSprite.play("floating")
-		if(vel_vector.y <0):
-			$AnimatedSprite.play("jump")
-			
 	if (is_wall_slide):
 		$AnimatedSprite.play("sliding")
+	elif (is_floating):
+		if (vel_vector.y >=0):
+			$AnimatedSprite.play("floating")
+		else:
+			$AnimatedSprite.play("jump")
+	else:
+		if (jump_height_timer > 0):
+			$AnimatedSprite.play("jump")
+		elif (!on_ground):
+			$AnimatedSprite.play("falling")
+		elif (is_idle):
+			$AnimatedSprite.play("idle")
+		else:
+			$AnimatedSprite.play("walk")
+
+
+		
 	
+		
 	if (vel_vector.x < 0):
 		$AnimatedSprite.set_flip_h(true)
 	elif(vel_vector.x > 0):
 		$AnimatedSprite.set_flip_h(false)
 	
 	Global.anim_info = $AnimatedSprite.get_animation()
-
+	#print(Global.anim_info)
 
 func _physics_process(delta):
-	get_input()
+	get_input(delta)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	animation_state_handler(velocity)
 	Global.p_info = velocity
 	#print($FloorCast.is_colliding(), can_jump)
-
-func direction_input_timer(is_input = false):
-	if !is_input:
-		if direction_input_check > 0:
-			direction_input_check -= 1
-		else:
-			jump_strength = 250
-			current_speed = walk_speed
-	else:
-		direction_input_check = 5
 
 func die():
 	Global.deaths = Global.deaths + 1
 	print(Global.deaths)
 	var _unused = get_tree().change_scene(Global.currentLevel)
 
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	die()

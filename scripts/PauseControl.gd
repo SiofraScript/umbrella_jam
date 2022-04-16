@@ -13,7 +13,7 @@ func _ready():
 func _physics_process(_delta):
 	# input buffer logic
 	if Input.is_action_just_pressed("left"):
-		Global.movementPressOrder.erase(-1)
+		Global.umbrellaPressOrder.erase(-1)
 		Global.movementPressOrder.append(-1)
 
 	if Input.is_action_just_released("left"):
@@ -32,9 +32,38 @@ func _physics_process(_delta):
 
 	if Input.is_action_just_released("down"):
 		Global.movementPressOrder.erase(0)
-		Global.movementPressOrder.push_front(0)
+		Global.movementPressOrder.push_front(0) #default if nothing pressed
 	
-	
+	###########
+	if Input.is_action_just_pressed("umbrella_left"):
+		Global.umbrellaPressOrder.erase(Vector2.LEFT)
+		Global.umbrellaPressOrder.append(Vector2.LEFT)
+
+	if Input.is_action_just_released("umbrella_left"):
+		Global.umbrellaPressOrder.erase(Vector2.LEFT)
+		
+	if Input.is_action_just_pressed("umbrella_right"):
+		Global.umbrellaPressOrder.erase(Vector2.RIGHT)
+		Global.umbrellaPressOrder.append(Vector2.RIGHT)
+
+	if Input.is_action_just_released("umbrella_right"):
+		Global.umbrellaPressOrder.erase(Vector2.RIGHT)
+		
+	if Input.is_action_just_pressed("umbrella_down"):
+		Global.umbrellaPressOrder.erase(Vector2.DOWN)
+		Global.umbrellaPressOrder.append(Vector2.DOWN)
+
+	if Input.is_action_just_released("umbrella_down"):
+		Global.umbrellaPressOrder.erase(Vector2.DOWN)
+
+	if Input.is_action_just_pressed("umbrella_up"):
+		Global.umbrellaPressOrder.erase(Vector2.UP)
+		Global.umbrellaPressOrder.append(Vector2.UP)
+
+	if Input.is_action_just_released("umbrella_up"):
+		Global.umbrellaPressOrder.erase(Vector2.UP)
+		Global.umbrellaPressOrder.push_front(Vector2.UP) # default if nothing pressed
+
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
 			get_tree().paused = true
