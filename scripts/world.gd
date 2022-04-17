@@ -19,7 +19,8 @@ func _ready():
 	$UI/AnimationPlayer.play("undim")
 	Global.soft_pause = true
 	set_modulation("ffffff")
-	
+		
+		
 func set_modulation(modulation):
 	$ColorModulator.change_modulation(modulation)
 	Global.stage_modulation = modulation
