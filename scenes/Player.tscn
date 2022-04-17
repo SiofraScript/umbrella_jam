@@ -49,10 +49,6 @@ region = Rect2( 410, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 451, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 1 )
-region = Rect2( 533, 0, 41, 32 )
-
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
 region = Rect2( 574, 0, 41, 32 )
@@ -68,6 +64,14 @@ region = Rect2( 656, 0, 41, 32 )
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 1 )
 region = Rect2( 697, 0, 41, 32 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 1 )
+region = Rect2( 533, 0, 41, 32 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 492, 0, 41, 32 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 1 )
@@ -93,10 +97,6 @@ region = Rect2( 1107, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 1148, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 1 )
-region = Rect2( 492, 0, 41, 32 )
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
@@ -104,29 +104,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 29 ) ],
-"loop": true,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "changedir",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 34 ) ],
+"frames": [ SubResource( 29 ) ],
 "loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
-"loop": true,
-"name": "floating",
+"name": "falling",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -137,6 +122,21 @@ animations = [ {
 "frames": [ SubResource( 40 ) ],
 "loop": true,
 "name": "sliding",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "changedir",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"loop": true,
+"name": "floating",
 "speed": 5.0
 } ]
 
