@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends Control
 
 
 # Declare member variables here. Examples:
@@ -18,6 +18,8 @@ var maxchar = 0
 var ibox = 0
 var max_box = 0
 
+onready var textbox = $textbox
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var file = File.new()
@@ -35,24 +37,24 @@ func get_scene_dialog():
 	portrait_path = this_box[1]
 	text_to_show = this_box[2]
 	maxchar = len(text_to_show)
-	visible_characters = 1
+	textbox.visible_characters = 1
 	lapsed = 1.0
-	text = text_to_show
+	textbox.bbcode_text = text_to_show
+	textbox.bbcode_enabled=true
 
 func _process(_delta):
-	if (visible_characters >= maxchar) && Input.is_action_just_pressed("advance_dialog"):
+	if (textbox.visible_characters >= maxchar) && Input.is_action_just_pressed("advance_dialog"):
 		ibox = ibox + 1
 		if ibox == max_box:
 			Global.show_dialog = false
-			print("free")
 			get_tree().paused = false
 			queue_free()
 			
 		else:
 			get_scene_dialog()
-	elif visible_characters<maxchar && Input.is_action_just_pressed("advance_dialog"):
+	elif textbox.visible_characters<maxchar && Input.is_action_just_pressed("advance_dialog"):
 		lapsed += 10
-	elif visible_characters<maxchar:
+	elif textbox.visible_characters<maxchar:
 		lapsed += 1
-	visible_characters = lapsed
+	textbox.visible_characters = lapsed
 	

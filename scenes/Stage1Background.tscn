@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://imgs/tiles/parallax_background2.png" type="Texture" id=1]
+[ext_resource path="res://imgs/tiles/parallax_background1.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Stage1Background.gd" type="Script" id=3]
+[ext_resource path="res://imgs/tiles/parallax_background3.png" type="Texture" id=4]
+
+[node name="Stage1Background" type="ParallaxBackground"]
+script = ExtResource( 3 )
+
+[node name="ParallaxLayerSky" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0, 1 )
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="Sky" type="Sprite" parent="ParallaxLayerSky"]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="ParallaxLayerCity" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="City" type="Sprite" parent="ParallaxLayerCity"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="ParallaxLayerRail" type="ParallaxLayer" parent="."]
+z_index = 1
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="Rail" type="Sprite" parent="ParallaxLayerRail"]
+texture = ExtResource( 4 )
+centered = false

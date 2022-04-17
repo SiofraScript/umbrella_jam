@@ -19,3 +19,16 @@ func _ready():
 func _on_DialogTriggerBox_body_entered(_body):
 	Global.shown_dialog = scene
 	Global.show_dialog = true
+	if scene == "stage1_1":
+		get_parent().set_modulation("0c1699")
+	elif scene == "stage1_2":
+		# TODO: spawn enemies
+		pass
+	elif scene == "stage2_1":
+		get_parent().set_modulation("a70b0b")
+		get_parent().get_node("FireParent").enable_children()
+	elif scene == "stage2_2":
+		# TODO: spawn enemies
+		pass
+	queue_free()
+	
