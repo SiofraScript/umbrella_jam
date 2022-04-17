@@ -30,5 +30,9 @@ func _on_DialogTriggerBox_body_entered(_body):
 	elif scene == "stage2_2":
 		# TODO: spawn enemies
 		pass
+	elif scene == "stage3_1":
+		get_parent().set_modulation("5ebc19")
+	elif scene == "stage5_1":
+		get_parent().set_modulation("9a248d")
 	queue_free()
 	
