@@ -69,3 +69,10 @@ func move():
 		$AnimatedSprite.play("walk")
 		$AnimatedSprite.set_flip_h(false)
 	set_global_position(my_position)
+
+func die():
+	queue_free()
+	
+func _on_hitbox_area_entered(area):
+	die()
+	
