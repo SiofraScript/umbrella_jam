@@ -19,6 +19,7 @@ onready var spawn_trigger_interval = 0
 onready var ROOT = get_tree().get_root()
 onready var offset_adjust = 0
 onready var pause_time = 80
+onready var kogasa_pos = Vector2()
 
 
 func _ready():
@@ -51,10 +52,17 @@ func _physics_process(delta):
 		elif(movement_interval <= 0):
 			pause_movement = true
 			pause_time = 80
+			
 		
 func move():
 	offset_adjust += 1
 	get_parent().set_offset(offset_adjust)
+	
+	kogasa_pos = get_owner().get_parent().get_owner().get_node("Player").get_global_position()
+	if(get_global_position().x > kogasa_pos.x):
+		$AnimatedSprite.set_flip_h(false)
+	elif(get_global_position().x < kogasa_pos.x):
+		$AnimatedSprite.set_flip_h(true)
 
 func die():
 	queue_free()
