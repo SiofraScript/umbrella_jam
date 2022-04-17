@@ -1,86 +1,22 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scripts/Stage2.gd" type="Script" id=1]
+[ext_resource path="res://scripts/world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/upheavtt.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scripts/debug_label.gd" type="Script" id=4]
-[ext_resource path="res://scripts/Label2.gd" type="Script" id=5]
 [ext_resource path="res://scenes/DialogTriggerBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ColorModulator.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/PauseControl.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Fire.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/FireParent.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/TrainTilemap.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/TrainBGTiles.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Stage1Background.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/stray_umbrella.tscn" type="PackedScene" id=15]
 
-[sub_resource type="DynamicFont" id=2]
-size = 32
-font_data = ExtResource( 3 )
-
-[node name="Stage2" type="Node2D"]
+[node name="Stage4" type="Node2D"]
 script = ExtResource( 1 )
-nextStage = "res://scenes/Stage3.tscn"
-
-[node name="FireParent" parent="." instance=ExtResource( 11 )]
-
-[node name="Fire2" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 89, 248 )
-
-[node name="Fire3" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 424, 248 )
-z_index = 1
-
-[node name="Fire4" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 104, 248 )
-
-[node name="Fire5" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 120, 248 )
-
-[node name="Fire6" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 232, 248 )
-
-[node name="Fire7" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 200, 200 )
-
-[node name="Fire8" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 200, 216 )
-
-[node name="Fire9" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 184, 232 )
-
-[node name="Fire10" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 216, 248 )
-
-[node name="Fire11" parent="FireParent" instance=ExtResource( 10 )]
-position = Vector2( 232, 232 )
+nextStage = "res://scenes/Stage5.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 248 )
-
-[node name="Label" type="Label" parent="Player"]
-visible = false
-margin_left = -130.0
-margin_top = -102.0
-margin_right = 152.0
-margin_bottom = -73.0
-rect_scale = Vector2( 0.5, 1 )
-size_flags_horizontal = 0
-custom_fonts/font = SubResource( 2 )
-text = "Velocity Vector:"
-script = ExtResource( 4 )
-
-[node name="Label2" type="Label" parent="Player"]
-visible = false
-margin_left = -130.0
-margin_top = -83.0
-margin_right = 875.0
-margin_bottom = -26.0
-custom_fonts/font = SubResource( 2 )
-text = "Animation:"
-script = ExtResource( 5 )
 
 [node name="PauseControl" parent="." instance=ExtResource( 9 )]
 pause_mode = 2
@@ -90,12 +26,12 @@ pause_mode = 2
 [node name="DialogTriggerBox2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 2072, 216 )
 scale = Vector2( 1, 100 )
-scene = "stage2_2"
+scene = "stage4_2"
 
 [node name="DialogTriggerBox" parent="." instance=ExtResource( 6 )]
 position = Vector2( 316, 242 )
 scale = Vector2( 1, 100 )
-scene = "stage2_1"
+scene = "stage4_1"
 
 [node name="stray_umbrella" parent="." instance=ExtResource( 15 )]
 position = Vector2( 2096, 242 )

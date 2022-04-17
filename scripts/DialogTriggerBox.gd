@@ -5,15 +5,12 @@ extends Area2D
 # var a = 2
 export var scene = "test"
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
 
 
 func _on_DialogTriggerBox_body_entered(_body):
@@ -30,5 +27,11 @@ func _on_DialogTriggerBox_body_entered(_body):
 	elif scene == "stage2_2":
 		# TODO: spawn enemies
 		pass
+	elif scene == "stage3_1":
+		get_parent().set_modulation("5ebc19")
+	elif scene == "stage3_2":
+		get_parent().get_node("MovableAnchor").move_y(100)
+	elif scene == "stage5_1":
+		get_parent().set_modulation("9a248d")
 	queue_free()
 	
