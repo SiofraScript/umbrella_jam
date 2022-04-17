@@ -2,5 +2,11 @@
     "stage1_1" : [["???", "path/to/portrait", "...all [color=#0c1699]alone[/color]...\n...want to die...\n...you left me all [color=#0c1699]alone[/color]..."]],
     "stage1_2" : [["???", "path/to/portrait", "...Look around your seat..."],["???", "path/to/portrait", "...You're forgetting something..."],["???", "path/to/portrait","You are forgetting me!"],["???", "path/to/portrait","[color=#0c1699]Don't leave me![/color]"],["???", "path/to/portrait", "[color=#0c1699][wave amp=25 freq=10]NoOoOoOoOoOOOooo![/wave][/color]"]],
     "stage2_1" : [["???", "path/to/portrait", "...Everything I did for you..."],["???", "path/to/portrait", "...Every good deed."],["???", "path/to/portrait", "[color=#a70b0b][shake rate=5 level=10]I will undo with my own hands![/shake][/color]"]],
-    "stage2_2" : [["???", "path/to/portrait", "Placehold"]]
+    "stage2_2" : [["???", "path/to/portrait", "Placehold"]],
+    "stage3_1" : [["???", "path/to/portrait", "Placehold"]],
+    "stage3_2" : [["???", "path/to/portrait", "Placehold"]],
+    "stage4_1" : [["???", "path/to/portrait", "Placehold"]],
+    "stage4_2" : [["???", "path/to/portrait", "Placehold"]],
+    "stage5_1" : [["???", "path/to/portrait", "Placehold"]],
+    "stage5_2" : [["???", "path/to/portrait", "Placehold"]],
 }
