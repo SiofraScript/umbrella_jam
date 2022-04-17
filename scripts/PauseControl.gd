@@ -71,6 +71,7 @@ func _physics_process(_delta):
 		
 		
 	elif Global.soft_pause:
+		get_tree().paused = true
 		# pause controls for soft pause
 		# pause button enters hard pause
 		# reset resets
@@ -101,7 +102,7 @@ func _physics_process(_delta):
 				Global.hard_pause = true
 				# TODO PAUSE BGM
 		elif Input.is_action_just_pressed("reset"):
-			var _unused = get_tree().change_scene(Global.currentLevel)
+			var _unused = get_tree().change_scene(Global.currentStage)
 			get_tree().paused = true
 			Global.soft_pause = true
 			Global.hard_pause = false

@@ -34,5 +34,4 @@ func _on_bullet_body_entered(_body):
 
 func _on_bullet_area_entered(_area):
 	# we collided with the player's umbrella, most likely.
-	#queue_free()
-	pass
+	queue_free()

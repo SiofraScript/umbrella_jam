@@ -30,8 +30,19 @@ onready var last_slide_l = false
 onready var can_jump = true
 var on_ground = true
 
+var can_die = true
 
 var velocity = Vector2()
+
+func update_camera():
+	$Camera2D.limit_left = Global.camera_limit_left
+	$Camera2D.limit_right = Global.camera_limit_right
+	$Camera2D.limit_top = Global.camera_limit_top
+	$Camera2D.limit_bottom = Global.camera_limit_bottom
+	Global.update_camera = false
+
+func _ready():
+	can_die = true
 
 func get_input(_delta):
 	var x_input = Global.movementPressOrder[-1]
@@ -47,27 +58,27 @@ func get_input(_delta):
 		last_slide_l = false
 		last_slide_r = false
 		can_jump = true
-		
-	if($RightCast.is_colliding()):
-		if(Input.is_action_pressed("right")):
-			is_wall_slide = true
-			last_slide_r = true
-			last_slide_l = false
-			is_floating = false
-		elif(Input.is_action_just_pressed("left")):
-			can_jump = true
-		else:
-			is_wall_slide = false
-	elif($LeftCast.is_colliding()):
-		if(Input.is_action_pressed("left")):
-			is_wall_slide = true
-			is_floating = false
-			last_slide_r = false
-			last_slide_l = true
-		elif(Input.is_action_just_pressed("right")):
-			can_jump = true
-		else:
-			is_wall_slide = false
+#
+#	if($RightCast.is_colliding()):
+#		if(Input.is_action_pressed("right")):
+#			is_wall_slide = true
+#			last_slide_r = true
+#			last_slide_l = false
+#			is_floating = false
+#		elif(Input.is_action_just_pressed("left")):
+#			can_jump = true
+#		else:
+#			is_wall_slide = false
+#	elif($LeftCast.is_colliding()):
+#		if(Input.is_action_pressed("left")):
+#			is_wall_slide = true
+#			is_floating = false
+#			last_slide_r = false
+#			last_slide_l = true
+#		elif(Input.is_action_just_pressed("right")):
+#			can_jump = true
+#		else:
+#			is_wall_slide = false
 	
 	
 	if x_input != 0:
@@ -179,6 +190,10 @@ func animation_state_handler(vel_vector):
 	#print(Global.anim_info)
 
 func _physics_process(delta):
+	
+	if Global.update_camera:
+		update_camera()
+	
 	get_input(delta)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	animation_state_handler(velocity)
@@ -186,9 +201,13 @@ func _physics_process(delta):
 	#print($FloorCast.is_colliding(), can_jump)
 
 func die():
-	Global.deaths = Global.deaths + 1
-	print(Global.deaths)
-	var _unused = get_tree().change_scene(Global.currentLevel)
+	# To prevent double-counting death if player touches two death-sources at once, etc.
+	if can_die:
+		Global.deaths = Global.deaths + 1
+		print(Global.deaths)
+		can_die = false
+		var _unused = get_tree().change_scene(Global.currentStage)
+		
 
 func _on_hitbox_area_entered(_area):
 	die()

@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Parasol Dreamin'"
-run/main_scene="res://scenes/TestWorld.tscn"
+run/main_scene="res://scenes/Stage1.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -147,6 +147,7 @@ advance_dialog={
 2d_physics/layer_3="hurts enemies"
 2d_physics/layer_4="player"
 2d_physics/layer_5="enemies"
+2d_physics/layer_6="hurts umbrella"
 
 [physics]
 
@@ -161,4 +162,5 @@ quality/intended_usage/framebuffer_allocation.mobile=0
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 2d/options/ninepatch_mode=0
+environment/default_clear_color=Color( 0.156863, 0.180392, 0.25098, 1 )
 environment/default_environment="res://default_env.tres"

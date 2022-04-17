@@ -10,7 +10,7 @@ var shown = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$ColorRect.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,7 +18,9 @@ func _process(_delta):
 	if !Global.show_dialog:
 		shown = false
 	elif Global.show_dialog and !shown:
-		var _d = dialogBox.instance()
-		add_child(_d)
+		var d = dialogBox.instance()
+		#d.anchor_left = 10
+		#d.anchor_top = 10
+		$DialogAnchor.add_child(d)
 		shown = true
 	
