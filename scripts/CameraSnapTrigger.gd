@@ -19,7 +19,7 @@ func _ready():
 #	pass
 
 
-func _on_CameraSnapTrigger_body_entered(body):
+func _on_CameraSnapTrigger_body_entered(_body):
 	print("triggered")
 	Global.camera_limit_left = camera_limit_left
 	Global.camera_limit_right = camera_limit_right

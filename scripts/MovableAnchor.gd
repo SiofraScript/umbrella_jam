@@ -22,7 +22,7 @@ func move_y(new_y):
 	tween.start()
 
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	Global.camera_limit_bottom = 3000
 	Global.update_camera = true
 	queue_free()

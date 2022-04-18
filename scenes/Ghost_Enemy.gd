@@ -20,38 +20,38 @@ onready var ROOT = get_tree().get_root()
 onready var offset_adjust = 0
 onready var pause_time = 80
 onready var kogasa_pos = Vector2()
-
+var active = true
 
 func _ready():
 	pass
 
-func _physics_process(delta):
-		
-	if(pause_movement):
-		if(pause_time > 0):
-			pause_time -= 1
-			$AnimatedSprite.play("attack")
-			if(pause_time % 15 == 0):
-				spawn_projectile(NE, 2, 0)
-				spawn_projectile(SE, 2, 0)
-				spawn_projectile(NW, 2, 0)
-				spawn_projectile(SW, 2, 0)
-			if(pause_time % 10 == 0):
-				spawn_projectile(N, 2, 0)
-				spawn_projectile(S, 2, 0)
-				spawn_projectile(W, 2, 0)
-				spawn_projectile(E, 2, 0)
-		elif(pause_time <= 0):
-			pause_movement = false
-			movement_interval = 160
-	else:
-		$AnimatedSprite.play("float")
-		if(movement_interval > 0):
-			movement_interval -= 1
-			move()
-		elif(movement_interval <= 0):
-			pause_movement = true
-			pause_time = 80
+func _physics_process(_delta):
+	if active:
+		if(pause_movement):
+			if(pause_time > 0):
+				pause_time -= 1
+				$AnimatedSprite.play("attack")
+				if(pause_time % 15 == 0):
+					spawn_projectile(NE, 2, 0)
+					spawn_projectile(SE, 2, 0)
+					spawn_projectile(NW, 2, 0)
+					spawn_projectile(SW, 2, 0)
+				if(pause_time % 10 == 0):
+					spawn_projectile(N, 2, 0)
+					spawn_projectile(S, 2, 0)
+					spawn_projectile(W, 2, 0)
+					spawn_projectile(E, 2, 0)
+			elif(pause_time <= 0):
+				pause_movement = false
+				movement_interval = 160
+		else:
+			$AnimatedSprite.play("float")
+			if(movement_interval > 0):
+				movement_interval -= 1
+				move()
+			elif(movement_interval <= 0):
+				pause_movement = true
+				pause_time = 80
 			
 		
 func move():
@@ -65,14 +65,15 @@ func move():
 		$AnimatedSprite.set_flip_h(true)
 
 func die():
-	queue_free()
+	get_parent().get_parent().die()
+	#queue_free()
 	
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	die()
 	
 func spawn_projectile(dir, speed, rot):
 	var p = projectile.instance()
 	p.set_global_position(get_global_position())
-	ROOT.add_child(p)
+	get_tree().get_current_scene().add_child(p)
 	dir = dir.normalized() * speed
 	p.set_trajectory(dir, rot)

@@ -79,6 +79,7 @@ cast_to = Vector2( 0, -15 )
 z_index = 1
 frames = SubResource( 7 )
 animation = "walk"
+frame = 4
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]

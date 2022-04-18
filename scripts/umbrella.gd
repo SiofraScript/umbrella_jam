@@ -26,6 +26,6 @@ func _on_umbrella_body_entered(_body):
 	pass # Replace with function body.
 
 
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	# kill the player
 	get_parent().die()

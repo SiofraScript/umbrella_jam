@@ -19,19 +19,24 @@ func _on_DialogTriggerBox_body_entered(_body):
 	if scene == "stage1_1":
 		get_parent().set_modulation("0c1699")
 	elif scene == "stage1_2":
-		# TODO: spawn enemies
-		pass
+		get_tree().get_current_scene().get_node("EnemyEndGroup").intro()
 	elif scene == "stage2_1":
 		get_parent().set_modulation("a70b0b")
 		get_parent().get_node("FireParent").enable_children()
 	elif scene == "stage2_2":
-		# TODO: spawn enemies
-		pass
+		get_tree().get_current_scene().get_node("EnemyEndGroup").intro()
 	elif scene == "stage3_1":
 		get_parent().set_modulation("5ebc19")
 	elif scene == "stage3_2":
 		get_parent().get_node("MovableAnchor").move_y(100)
+	elif scene == "stage4_1":
+		get_parent().set_modulation("0c1699")
+		get_parent().flame_timer_enabled = true
+	elif scene == "stage4_2":
+		get_tree().get_current_scene().get_node("EnemyEndGroup").intro()
 	elif scene == "stage5_1":
 		get_parent().set_modulation("9a248d")
+	elif scene == "stage5_2":
+		get_tree().get_current_scene().get_node("EnemyEndGroup").intro()
 	queue_free()
 	
