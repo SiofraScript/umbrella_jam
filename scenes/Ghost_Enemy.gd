@@ -7,6 +7,7 @@ onready var target_pos = Vector2()
 onready var pause_movement = false
 onready var run_idle_timer = true
 onready var projectile = preload("res://scenes/Bullet.tscn")
+var death_animation = preload("res://scenes/EnemyDeath.tscn")
 onready var N = Vector2(0,-1)
 onready var E = Vector2(1,0)
 onready var S = Vector2(0,1)
@@ -65,6 +66,9 @@ func move():
 		$AnimatedSprite.set_flip_h(true)
 
 func die():
+	var da = death_animation.instance()
+	da.position = global_position
+	get_tree().get_current_scene().add_child(da)
 	get_parent().get_parent().die()
 	#queue_free()
 	

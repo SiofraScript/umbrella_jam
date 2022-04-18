@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/DialogTriggerBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/ColorModulator.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/PauseControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/EnemyEndGroup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/TrainTilemap.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/TrainBGTiles.tscn" type="PackedScene" id=13]
@@ -21,9 +20,6 @@ nextStage = "res://scenes/Stage4.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 120, 248 )
-
-[node name="PauseControl" parent="." instance=ExtResource( 9 )]
-pause_mode = 2
 
 [node name="UI" parent="." instance=ExtResource( 7 )]
 

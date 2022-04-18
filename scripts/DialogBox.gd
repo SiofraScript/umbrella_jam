@@ -5,7 +5,7 @@ extends Control
 # var a = 2
 # var b = "text"
 const dialog_file = "res://ui/dialog_scenes.json"
-var scene = ""
+var scene = "intro"
 var dialogs = {}
 var dialog = []
 var this_box = []
@@ -35,6 +35,8 @@ func get_scene_dialog():
 	this_box = dialog[ibox]
 	speaker = this_box[0]
 	portrait_path = this_box[1]
+	var portrait = load(portrait_path)
+	$portrait.texture = portrait
 	text_to_show = this_box[2]
 	maxchar = len(text_to_show)
 	textbox.visible_characters = 1

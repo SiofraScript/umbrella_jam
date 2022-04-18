@@ -4,10 +4,11 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+onready var bgm_player = $BGM1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	bgm_player.play(0)
 
 func _physics_process(_delta):
 	######### input buffer logic #############
@@ -79,12 +80,12 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("pause"):
 			get_tree().paused = true
 			$PauseSound.play(0) # pause sound
-			# TODO pause BGM
+			bgm_player.set_stream_paused(true)
 			Global.hard_pause = true
 			Global.soft_pause = false
 		elif Input.is_action_just_pressed("reset"):
 			var _unused = get_tree().change_scene(Global.currentStage)
-		elif (Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down") || Input.is_action_just_pressed("jump")):
+		elif (Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down") || Input.is_action_just_pressed("jump") || Input.is_action_just_pressed("advance_dialog") or Input.is_action_just_pressed('umbrella_left') or Input.is_action_just_pressed('umbrella_right') or Input.is_action_just_pressed("umbrella_down") or Input.is_action_just_pressed("umbrella_up")):
 			get_tree().paused = false
 			Global.soft_pause = false
 	else:
@@ -95,16 +96,16 @@ func _physics_process(_delta):
 				get_tree().paused = false
 				$PauseSound.play(0) # Unpause sound
 				Global.hard_pause = false
-				# TODO UNPAUSE BGM
+				bgm_player.set_stream_paused(false)
 			else:
 				get_tree().paused = true
 				$PauseSound.play(0)
 				Global.hard_pause = true
-				# TODO PAUSE BGM
+				bgm_player.set_stream_paused(true)
 		elif Input.is_action_just_pressed("reset"):
 			var _unused = get_tree().change_scene(Global.currentStage)
 			get_tree().paused = true
 			Global.soft_pause = true
 			Global.hard_pause = false
-		
+			bgm_player.set_stream_paused(false)
 		

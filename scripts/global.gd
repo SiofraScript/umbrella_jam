@@ -11,7 +11,7 @@ var movementPressOrder = [0] # this is a simple input buffer. The last entry is 
 var umbrellaPressOrder = [Vector2.UP]
 
 var show_dialog = false
-var shown_dialog = ""
+var shown_dialog = "intro"
 var hard_pause = false
 var soft_pause = true
 

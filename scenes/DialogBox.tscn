@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/DialogBox.gd" type="Script" id=1]
 [ext_resource path="res://ui/dialogBox.png" type="Texture" id=2]
+[ext_resource path="res://ui/Font.tres" type="DynamicFont" id=4]
 
 [node name="DialogBox" type="Control"]
 margin_right = 280.0
@@ -17,3 +18,9 @@ margin_left = 9.0
 margin_top = 7.0
 margin_right = 235.0
 margin_bottom = 52.0
+custom_fonts/normal_font = ExtResource( 4 )
+scroll_active = false
+
+[node name="portrait" type="Sprite" parent="."]
+position = Vector2( 256, 28 )
+region_rect = Rect2( 0, 0, 32, 32 )

@@ -49,22 +49,6 @@ region = Rect2( 410, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 451, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 1 )
-region = Rect2( 574, 0, 41, 32 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 1 )
-region = Rect2( 615, 0, 41, 32 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 1 )
-region = Rect2( 656, 0, 41, 32 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 1 )
-region = Rect2( 697, 0, 41, 32 )
-
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 1 )
 region = Rect2( 533, 0, 41, 32 )
@@ -97,16 +81,27 @@ region = Rect2( 1107, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 1148, 0, 41, 32 )
 
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 574, 0, 41, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 1 )
+region = Rect2( 615, 0, 41, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 1 )
+region = Rect2( 656, 0, 41, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 1 )
+region = Rect2( 697, 0, 41, 32 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": true,
-"name": "walk",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 29 ) ],
@@ -138,13 +133,18 @@ animations = [ {
 "loop": true,
 "name": "floating",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 6, 8 )
+extents = Vector2( 5, 8 )
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 2.0
+[sub_resource type="RectangleShape2D" id=41]
+extents = Vector2( 3, 5 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 511, 366 )
@@ -159,21 +159,31 @@ animation = "idle"
 frame = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 0 )
 shape = SubResource( 2 )
 
 [node name="RightCast" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( 7, 0 )
 
 [node name="LeftCast" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( -8, 0 )
 
 [node name="FloorCast" type="RayCast2D" parent="."]
+position = Vector2( 3, 0 )
+enabled = true
+cast_to = Vector2( 0, 9 )
+
+[node name="FloorCast2" type="RayCast2D" parent="."]
+position = Vector2( -5, 0 )
 enabled = true
 cast_to = Vector2( 0, 9 )
 
 [node name="umbrella" parent="." instance=ExtResource( 9 )]
+visible = false
 z_index = 1
 
 [node name="hitbox" type="Area2D" parent="."]
@@ -183,9 +193,12 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 modulate = Color( 0.705882, 0.239216, 0.145098, 1 )
 self_modulate = Color( 0.909804, 0.0941176, 0.0941176, 1 )
-shape = SubResource( 3 )
+position = Vector2( -1, 0 )
+shape = SubResource( 41 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+pause_mode = 2
+visible = false
 current = true
 limit_smoothed = true
 smoothing_enabled = true

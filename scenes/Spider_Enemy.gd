@@ -18,6 +18,7 @@ onready var SW = Vector2(-1,1)
 onready var spawn_trigger_interval = 0
 onready var ROOT = get_tree().get_root()
 var active = true
+var death_animation = preload("res://scenes/EnemyDeath.tscn")
 
 func _ready():
 	my_position = get_global_position()
@@ -60,6 +61,9 @@ func _physics_process(delta):
 			movement_interval = 160
 
 func die():
+	var da = death_animation.instance()
+	da.position = global_position
+	get_tree().get_current_scene().add_child(da)
 	queue_free()
 	
 func _on_hitbox_area_entered(area):

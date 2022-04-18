@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-
+var death_animation = preload("res://scenes/EnemyDeath.tscn")
 
 onready var random_gen = RandomNumberGenerator.new()
 onready var movement_interval = 160
@@ -10,17 +10,22 @@ onready var target_pos = Vector2()
 
 var active = true
 
+var orientation_corrected = false
+
 func _ready():
 	my_position = get_global_position()
 	target_pos = my_position
 	random_gen.randomize()
+	
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if active:
-		if($UpCast.is_colliding()):
+		if($UpCast.is_colliding()) and !orientation_corrected:
 			$AnimatedSprite.set_flip_v(true)
-			
+			$DownCastLeft.cast_to = -$DownCastLeft.cast_to
+			$DownCastRight.cast_to = -$DownCastRight.cast_to
+			orientation_corrected = true
 		move()
 		
 		if(movement_interval > 0):
@@ -50,12 +55,14 @@ func random_int(Min, Max):
 	return value
 	
 func read_raycasts():
+	var leftOK = !$LeftCast.is_colliding() and $DownCastLeft.is_colliding()
+	var rightOK = !$RightCast.is_colliding() and $DownCastRight.is_colliding()
 	my_position = get_global_position()
-	if(!$LeftCast.is_colliding() and !$RightCast.is_colliding()):
+	if(leftOK and rightOK):
 		return 2
-	elif($LeftCast.is_colliding() and !$RightCast.is_colliding()):
+	elif(!leftOK and rightOK):
 		return 0
-	elif(!$LeftCast.is_colliding() and $RightCast.is_colliding()):
+	elif(leftOK and !rightOK):
 		return 1
 		
 func move():
@@ -73,9 +80,12 @@ func move():
 	set_global_position(my_position)
 
 func die():
+	var da = death_animation.instance()
+	da.position = global_position
+	get_tree().get_current_scene().add_child(da)
 	queue_free()
 	
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	die()
 	
 func deactivate():

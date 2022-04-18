@@ -29,6 +29,7 @@ func _on_DialogTriggerBox_body_entered(_body):
 		get_parent().set_modulation("5ebc19")
 	elif scene == "stage3_2":
 		get_parent().get_node("MovableAnchor").move_y(100)
+		get_tree().get_current_scene().get_node("EnemyEndGroup").intro()
 	elif scene == "stage4_1":
 		get_parent().set_modulation("0c1699")
 		get_parent().flame_timer_enabled = true

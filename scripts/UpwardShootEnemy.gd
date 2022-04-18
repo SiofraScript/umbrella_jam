@@ -6,15 +6,19 @@ extends "res://scripts/Enemy.gd"
 export var fire_interval = 120
 export var initial_timer = 0
 export var bullet_scale = 1
-export var bullet_velocity = Vector2(2,0)
+export var bullet_velocity = Vector2(0,-2)
 var timer = 0
 var active = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer = initial_timer
-	if bullet_velocity.x < 0:
-		$Sprite.flip_h = true
+	if bullet_velocity.y > 0:
+		$Sprite.flip_v = true
+	elif bullet_velocity.x > 0:
+		$Sprite.rotation_degrees = 90
+	elif bullet_velocity.x < 0:
+		$Sprite.rotation_degrees = -90
 
 func fire_bullet(bullet_type):
 	var _bullet = bullets[bullet_type].instance()
