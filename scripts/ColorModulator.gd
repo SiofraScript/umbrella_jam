@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 onready var tween = $Tween
+onready var bgtween = $BGTween
 export var tween_time = 1.0
 
 func change_modulation(new_modulation):
@@ -13,3 +14,7 @@ func change_modulation(new_modulation):
 		current_modulation, Color(new_modulation), tween_time,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+
+	tween.interpolate_property(get_node("ParallaxBackground"), "modulate",
+		current_modulation, Color(new_modulation), tween_time,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)

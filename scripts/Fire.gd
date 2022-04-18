@@ -15,7 +15,6 @@ func _ready():
 
 
 func spawn():
-	print("spawn")
 	$AnimatedSprite.visible = false
 	$SpawnAnimation.visible = true
 	$SpawnAnimation.animation = "default"
@@ -24,7 +23,6 @@ func spawn():
 	
 	
 func despawn():
-	print("despawn")
 	set_deferred("monitorable",false)
 	$AnimatedSprite.animation = "despawn"
 	$AnimatedSprite.frame=0

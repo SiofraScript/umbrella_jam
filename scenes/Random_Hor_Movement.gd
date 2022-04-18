@@ -8,6 +8,7 @@ onready var my_position = Vector2()
 onready var should_move = false
 onready var target_pos = Vector2()
 
+var active = true
 
 func _ready():
 	my_position = get_global_position()
@@ -16,31 +17,32 @@ func _ready():
 
 
 func _physics_process(delta):
-	if($UpCast.is_colliding()):
-		$AnimatedSprite.set_flip_v(true)
-		
-	move()
-	
-	if(movement_interval > 0):
-		movement_interval -= 1
-	elif(movement_interval <= 0):
-		movement_interval = 160
+	if active:
+		if($UpCast.is_colliding()):
+			$AnimatedSprite.set_flip_v(true)
 			
-		var avail_movements = read_raycasts()
-		if(avail_movements == 0):
-			target_pos = my_position
-			target_pos.x += 32
-		elif(avail_movements == 1):
-			target_pos = my_position
-			target_pos.x -= 32
-		elif(avail_movements == 2):
-			var next_dir = random_int(0,1)
-			if(next_dir == 0):
+		move()
+		
+		if(movement_interval > 0):
+			movement_interval -= 1
+		elif(movement_interval <= 0):
+			movement_interval = 160
+				
+			var avail_movements = read_raycasts()
+			if(avail_movements == 0):
 				target_pos = my_position
 				target_pos.x += 32
-			else:
+			elif(avail_movements == 1):
 				target_pos = my_position
 				target_pos.x -= 32
+			elif(avail_movements == 2):
+				var next_dir = random_int(0,1)
+				if(next_dir == 0):
+					target_pos = my_position
+					target_pos.x += 32
+				else:
+					target_pos = my_position
+					target_pos.x -= 32
 			
 
 func random_int(Min, Max):
@@ -76,3 +78,12 @@ func die():
 func _on_hitbox_area_entered(area):
 	die()
 	
+func deactivate():
+	get_node("Hurtbox").set_deferred("monitorable",false)
+	get_node("hitbox").set_deferred("monitoring",false)
+	active=false
+	
+func activate():
+	get_node("Hurtbox").set_deferred("monitorable",true)
+	get_node("hitbox").set_deferred("monitoring",true)
+	active=true

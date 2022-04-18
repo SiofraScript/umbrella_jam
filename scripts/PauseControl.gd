@@ -83,7 +83,7 @@ func _physics_process(_delta):
 			Global.hard_pause = true
 			Global.soft_pause = false
 		elif Input.is_action_just_pressed("reset"):
-			var _unused = get_tree().change_scene(Global.currentLevel)
+			var _unused = get_tree().change_scene(Global.currentStage)
 		elif (Input.is_action_just_pressed("left") || Input.is_action_just_pressed("right") || Input.is_action_just_pressed("down") || Input.is_action_just_pressed("jump")):
 			get_tree().paused = false
 			Global.soft_pause = false

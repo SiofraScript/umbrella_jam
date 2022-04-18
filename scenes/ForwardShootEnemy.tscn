@@ -7,5 +7,8 @@
 [node name="ForwardShootEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="Hurtbox" parent="." index="0"]
+scale = Vector2( 0.5, 1 )
+
 [node name="Sprite" type="Sprite" parent="." index="3"]
 texture = ExtResource( 3 )

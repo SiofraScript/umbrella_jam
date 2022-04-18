@@ -7,6 +7,9 @@
 
 [node name="Stage1Background" type="ParallaxBackground"]
 script = ExtResource( 3 )
+modulate = Color( 0.729412, 0.0784314, 0.0784314, 1 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="ParallaxLayerSky" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0, 1 )

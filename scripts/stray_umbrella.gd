@@ -17,5 +17,4 @@ func _ready():
 
 
 func _on_stray_umbrella_body_entered(_body):
-	pass # Replace with function body.
-	Global.change_stage()
+	pass
