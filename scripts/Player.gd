@@ -34,6 +34,8 @@ var can_die = true
 
 var velocity = Vector2()
 
+var death_animation = preload("res://scenes/PlayerDeath.tscn")
+
 func update_camera():
 	$Camera2D.limit_left = Global.camera_limit_left
 	$Camera2D.limit_right = Global.camera_limit_right
@@ -51,13 +53,13 @@ func get_input(_delta):
 		umbrella_input = Global.umbrellaPressOrder[-2]
 	
 	is_wall_slide = false
-	
-	on_ground = $FloorCast.is_colliding()
+	on_ground = ($FloorCast.is_colliding() or $FloorCast2.is_colliding())
 	if(on_ground):
 		is_floating = false
 		last_slide_l = false
 		last_slide_r = false
 		can_jump = true
+	
 #
 #	if($RightCast.is_colliding()):
 #		if(Input.is_action_pressed("right")):
@@ -90,6 +92,12 @@ func get_input(_delta):
 		if (abs(velocity.x) < idle_speed_threshold) and on_ground:
 			is_idle = true
 		
+#	if Input.is_action_just_pressed("jump") and jump_height_timer <= 0:
+#		if(!on_ground):
+#			is_floating = true
+#		else:
+#			is_floating = false
+		
 	if Input.is_action_just_pressed("jump"):
 		if(can_jump):
 			is_idle = false
@@ -107,17 +115,13 @@ func get_input(_delta):
 			velocity.y = 0
 				
 			can_jump = false
-		
-	if Input.is_action_pressed("jump"):
-		if(!on_ground and !is_wall_slide and velocity.y >=0):
+		elif (!on_ground):
 			is_floating = true
-		else:
-			is_floating = false
-	else:
+			
+		
+	if !Input.is_action_pressed("jump"):
 		jump_height_timer = 0
-		is_floating = false	
-		
-		
+		is_floating = false
 		
 	if(!on_ground):
 		if(is_floating == true):
@@ -198,6 +202,8 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	animation_state_handler(velocity)
 	Global.p_info = velocity
+	if position.y > Global.camera_limit_bottom + 200:
+		die()
 	#print($FloorCast.is_colliding(), can_jump)
 
 func die():
@@ -206,7 +212,12 @@ func die():
 		Global.deaths = Global.deaths + 1
 		print(Global.deaths)
 		can_die = false
-		var _unused = get_tree().change_scene(Global.currentStage)
+		var da = death_animation.instance()
+		da.position = global_position
+		if $AnimatedSprite.flip_h:
+			da.flip_h = true
+		get_tree().get_current_scene().add_child(da)
+		visible = false
 		
 
 func _on_hitbox_area_entered(_area):

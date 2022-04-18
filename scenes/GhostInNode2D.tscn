@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Enemy_03.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve2D" id=9]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, -1, 25.6473, -14.7157, -25.6473, 14.7157, -24, 12, -15.5566, 28.5905, 15.5566, -28.5905, -66, -15, -32.3745, -16.3975, 32.3745, 16.3975, 18, 15, 24.386, 29.4314, -24.386, -29.4314, 54, -14, 0, 0, 0, 0, 0, -1 )
+}
+
+[node name="GhostInNode2D" type="Node2D"]
+position = Vector2( -118, 0 )
+
+[node name="Path2D" parent="." instance=ExtResource( 2 )]
+curve = SubResource( 9 )

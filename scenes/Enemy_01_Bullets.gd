@@ -24,7 +24,7 @@ func _ready():
 	pass 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if(spawn_trigger_interval > 0):
 		spawn_trigger_interval -= 1
 	elif(spawn_trigger_interval <= 0):
