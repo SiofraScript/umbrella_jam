@@ -43,4 +43,5 @@ func _process(_delta):
 
 
 func _on_start_finished():
+	Global.shown_dialog="intro"
 	var _ret = get_tree().change_scene("res://scenes/Intro.tscn")

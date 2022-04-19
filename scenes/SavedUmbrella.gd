@@ -17,4 +17,6 @@ func _ready():
 
 
 func _on_SavedUmbrella_body_entered(_body):
+	if Global.nextStage == "res://scenes/Outro.tscn":
+		Global.shown_dialog = "outro"
 	Global.change_stage()

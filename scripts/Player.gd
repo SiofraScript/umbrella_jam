@@ -29,6 +29,12 @@ onready var last_slide_r = false
 onready var last_slide_l = false
 onready var can_jump = true
 var on_ground = true
+var floating_umbrella_offset = 7
+
+var prev_rot = -90
+var just_turned = false
+var turn_timeout = 12
+var turned_timer = 0
 
 var can_die = true
 
@@ -162,7 +168,6 @@ func get_input(_delta):
 		$umbrella.rotation = Vector2.UP.angle()
 		#$umbrella/blockbox.disabled = true
 		
-	
 func animation_state_handler(vel_vector):
 	if (is_wall_slide):
 		$AnimatedSprite.play("sliding")
@@ -182,6 +187,39 @@ func animation_state_handler(vel_vector):
 			$AnimatedSprite.play("walk")
 
 
+	if $umbrella.rotation_degrees == prev_rot and !just_turned:
+		if $umbrella.rotation_degrees == 0:
+			$umbrella/Sprite.animation = "right"
+		elif $umbrella.rotation_degrees == 90:
+			$umbrella/Sprite.animation = "down"
+		elif $umbrella.rotation_degrees == 180:
+			$umbrella/Sprite.animation = "left"
+		elif $umbrella.rotation_degrees == -90:
+			$umbrella/Sprite.animation = "default"
+	elif just_turned:
+		turned_timer = turned_timer - 1
+		if turned_timer == 0:
+			just_turned = false
+		# same animation
+	else:
+		if $umbrella.rotation_degrees == 180:
+			# special logic to deal with cut in angles
+			if prev_rot == -90:
+				$umbrella/Sprite.animation = "turn_up"
+			else:
+				$umbrella/Sprite.animation = "turn_down"
+		else:
+			if prev_rot == 180 and $umbrella.rotation_degrees ==0:
+				$umbrella/Sprite.animation = "turn_down"
+			elif $umbrella.rotation_degrees > prev_rot:
+				$umbrella/Sprite.animation = "turn_down"
+			else:
+				$umbrella/Sprite.animation = "turn_up"
+		just_turned = true
+		turned_timer = turn_timeout
+		
+		prev_rot = $umbrella.rotation_degrees
+
 		
 	
 		
@@ -194,7 +232,14 @@ func animation_state_handler(vel_vector):
 	#print(Global.anim_info)
 
 func _physics_process(delta):
-	
+	if is_floating:
+		if $AnimatedSprite.flip_h:
+			$umbrella.position.x = floating_umbrella_offset 
+		else:
+			$umbrella.position.x = -floating_umbrella_offset 
+	else:
+		$umbrella.position.x = 0
+		
 	if Global.update_camera:
 		update_camera()
 	

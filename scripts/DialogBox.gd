@@ -5,7 +5,7 @@ extends Control
 # var a = 2
 # var b = "text"
 const dialog_file = "res://ui/dialog_scenes.json"
-var scene = "intro"
+export var scene = "intro"
 var dialogs = {}
 var dialog = []
 var this_box = []
@@ -25,11 +25,11 @@ func _ready():
 	var file = File.new()
 	var _err = file.open(dialog_file, File.READ)
 	dialogs = parse_json(file.get_as_text())
-	scene = Global.shown_dialog
 	ibox = 0
 	get_scene_dialog()
 
 func get_scene_dialog():
+	scene = Global.shown_dialog
 	dialog = dialogs[scene]
 	max_box = len(dialog)
 	this_box = dialog[ibox]

@@ -4,8 +4,8 @@ extends "res://scripts/world.gd"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var flame_interval = 300
-var flame_timer = flame_interval
+export var flame_interval = 225
+var flame_timer = 0
 var flame_timer_enabled = false
 
 # Called when the node enters the scene tree for the first time.

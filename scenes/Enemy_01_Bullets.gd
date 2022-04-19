@@ -12,8 +12,8 @@ onready var NE = Vector2(1,-1)
 onready var NW = Vector2(-1,-1)
 onready var SE = Vector2(1,1)
 onready var SW = Vector2(-1,1)
-onready var spawn_trigger_interval = 160
-onready var spawn_window = 100
+export var spawn_trigger_interval = 160
+export var spawn_window = 100
 onready var ROOT = get_tree().get_root()
 
 onready var down_cast = get_parent().get_node("DownCast")

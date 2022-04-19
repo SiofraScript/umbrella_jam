@@ -15,4 +15,6 @@ func _ready():
 
 func _process(_delta):
 	if get_child_count() <= 0:
+		PauseControl.title_bgm()
 		var _unused = get_tree().change_scene("res://scenes/Ending.tscn")
+		

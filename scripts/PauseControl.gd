@@ -4,7 +4,7 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var bgm_player = $BGM1
+onready var bgm_player = $BGMtitle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -108,4 +108,28 @@ func _physics_process(_delta):
 			Global.soft_pause = true
 			Global.hard_pause = false
 			bgm_player.set_stream_paused(false)
+		
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "fadeTitle":
+		$BGMtitle.playing=false
+		$BGMtitle.volume_db = 0
+		$BGM1.volume_db = 0
+		$BGM1.playing = true
+	if anim_name == "fade1":
+		$BGM1.playing=false
+		$BGM1.volume_db = 0
+		$BGMtitle.volume_db = 0
+		$BGMtitle.playing = true
+	
+func stage_bgm():
+	bgm_player = $BGM1
+	$AnimationPlayer.play("fadeTitle")
+	#bgm_player.play(0)
+	
+func title_bgm():
+	bgm_player = $BGMtitle
+	$AnimationPlayer.play("fade1")
+	#bgm_player.play(0)
 		
