@@ -1,4 +1,4 @@
-extends TextureRect
+extends ColorRect
 
 
 # Declare member variables here. Examples:
@@ -14,5 +14,9 @@ func _ready():
 
 
 func _process(_delta):
-	if get_child_count() <= 0:
+	if get_child_count() <= 6:
+		Global.time_start = OS.get_ticks_msec()
+		Global.deaths = 0
+		PauseControl.stage_bgm()
 		var _unused = get_tree().change_scene("res://scenes/Stage1.tscn")
+		

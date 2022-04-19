@@ -1,8 +1,66 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/PauseControl.gd" type="Script" id=1]
 [ext_resource path="res://sfx/Pause.wav" type="AudioStream" id=2]
-[ext_resource path="res://bgm/stage.ogg" type="AudioStream" id=3]
+[ext_resource path="res://bgm/stageReal.ogg" type="AudioStream" id=3]
+[ext_resource path="res://bgm/Beware_of_the_umbrellas_alone_in_dreams.ogg" type="AudioStream" id=4]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BGMtitle:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BGM1:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade1"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BGM1:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "fadeTitle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BGMtitle:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
 
 [node name="PauseControl" type="Node"]
 pause_mode = 2
@@ -13,4 +71,13 @@ stream = ExtResource( 2 )
 
 [node name="BGM1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -80.0
+
+[node name="BGMtitle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/fade1 = SubResource( 3 )
+anims/fadeTitle = SubResource( 1 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

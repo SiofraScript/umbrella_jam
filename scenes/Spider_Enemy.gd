@@ -17,14 +17,16 @@ onready var SE = Vector2(1,1)
 onready var SW = Vector2(-1,1)
 onready var spawn_trigger_interval = 0
 onready var ROOT = get_tree().get_root()
+export var hflip = false
 var active = true
 var death_animation = preload("res://scenes/EnemyDeath.tscn")
 
 func _ready():
 	my_position = get_global_position()
 	target_pos = my_position
+	$AnimatedSprite.flip_h = hflip
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if active:
 		if(run_idle_timer):
 			movement_interval -= 1
@@ -44,21 +46,21 @@ func _physics_process(delta):
 				if(!run_idle_timer):
 					run_idle_timer = true
 			
-	func move():
-		if(!$DownCast.is_colliding()):
-			my_position = get_global_position()
-			my_position.y += 0.8
-			set_global_position(my_position)
-			$AnimatedSprite.play("attack")
-			spawn_trigger_interval += 1
-			if(spawn_trigger_interval % 16 == 0):
-				spawn_projectile(E, 2, 0)
-				spawn_projectile(W, 2, 0)
-		elif($DownCast.is_colliding()):
-			spawn_trigger_interval = 0
-			spinning_web = false
-			$AnimatedSprite.play("idle")
-			movement_interval = 160
+func move():
+	if(!$DownCast.is_colliding()):
+		my_position = get_global_position()
+		my_position.y += 0.8
+		set_global_position(my_position)
+		$AnimatedSprite.play("attack")
+		spawn_trigger_interval += 1
+		if(spawn_trigger_interval % 16 == 0):
+			spawn_projectile(E, 2, 0)
+			spawn_projectile(W, 2, 0)
+	elif($DownCast.is_colliding()):
+		spawn_trigger_interval = 0
+		spinning_web = false
+		$AnimatedSprite.play("idle")
+		movement_interval = 160
 
 func die():
 	var da = death_animation.instance()
@@ -66,7 +68,7 @@ func die():
 	get_tree().get_current_scene().add_child(da)
 	queue_free()
 	
-func _on_hitbox_area_entered(area):
+func _on_hitbox_area_entered(_area):
 	die()
 	
 func spawn_projectile(dir, speed, rot):

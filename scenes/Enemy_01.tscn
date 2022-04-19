@@ -79,7 +79,7 @@ cast_to = Vector2( 0, -15 )
 z_index = 1
 frames = SubResource( 7 )
 animation = "walk"
-frame = 4
+frame = 3
 playing = true
 
 [node name="hitbox" type="Area2D" parent="."]
@@ -91,12 +91,12 @@ position = Vector2( 0, -0.5 )
 shape = SubResource( 8 )
 
 [node name="DownCastLeft" type="RayCast2D" parent="."]
-position = Vector2( -24, 0 )
+position = Vector2( -32, 0 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 
 [node name="DownCastRight" type="RayCast2D" parent="."]
-position = Vector2( 24, 0 )
+position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 

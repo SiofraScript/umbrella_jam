@@ -49,10 +49,6 @@ region = Rect2( 410, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 451, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 1 )
-region = Rect2( 533, 0, 41, 32 )
-
 [sub_resource type="AtlasTexture" id=40]
 atlas = ExtResource( 1 )
 region = Rect2( 492, 0, 41, 32 )
@@ -61,25 +57,25 @@ region = Rect2( 492, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 533, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=35]
+[sub_resource type="AtlasTexture" id=42]
 atlas = ExtResource( 1 )
-region = Rect2( 984, 0, 41, 32 )
+region = Rect2( 2624, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=36]
+[sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 1 )
-region = Rect2( 1025, 0, 41, 32 )
+region = Rect2( 2665, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=37]
+[sub_resource type="AtlasTexture" id=44]
 atlas = ExtResource( 1 )
-region = Rect2( 1066, 0, 41, 32 )
+region = Rect2( 2706, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=38]
+[sub_resource type="AtlasTexture" id=45]
 atlas = ExtResource( 1 )
-region = Rect2( 1107, 0, 41, 32 )
+region = Rect2( 2747, 0, 41, 32 )
 
-[sub_resource type="AtlasTexture" id=39]
+[sub_resource type="AtlasTexture" id=46]
 atlas = ExtResource( 1 )
-region = Rect2( 1148, 0, 41, 32 )
+region = Rect2( 2788, 0, 41, 32 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
@@ -97,6 +93,10 @@ region = Rect2( 656, 0, 41, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 697, 0, 41, 32 )
 
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 1 )
+region = Rect2( 533, 0, 41, 32 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
@@ -104,19 +104,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 29 ) ],
+"frames": [ SubResource( 40 ) ],
 "loop": true,
-"name": "falling",
+"name": "sliding",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "run",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 40 ) ],
-"loop": true,
-"name": "sliding",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -129,7 +124,7 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
 "loop": true,
 "name": "floating",
 "speed": 5.0
@@ -137,6 +132,11 @@ animations = [ {
 "frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 47 ) ],
+"loop": true,
+"name": "falling",
 "speed": 5.0
 } ]
 

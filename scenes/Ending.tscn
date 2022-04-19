@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/ending.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Ending.gd" type="Script" id=2]
+[ext_resource path="res://ui/Font.tres" type="DynamicFont" id=3]
 
-[node name="Ending" type="TextureRect"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="endingScreen" type="TextureRect"]
 texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="score" type="RichTextLabel" parent="."]
+margin_left = 110.0
+margin_top = 98.0
+margin_right = 310.0
+margin_bottom = 130.0
+custom_fonts/normal_font = ExtResource( 3 )

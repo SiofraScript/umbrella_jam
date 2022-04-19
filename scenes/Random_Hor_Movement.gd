@@ -8,6 +8,9 @@ onready var my_position = Vector2()
 onready var should_move = false
 onready var target_pos = Vector2()
 
+export var spawn_trigger_interval = 160
+export var spawn_window = 100
+
 var active = true
 
 var orientation_corrected = false
@@ -16,6 +19,8 @@ func _ready():
 	my_position = get_global_position()
 	target_pos = my_position
 	random_gen.randomize()
+	$B_Spawner.spawn_trigger_interval = spawn_trigger_interval
+	$B_Spawner.spawn_window = spawn_window
 	
 
 

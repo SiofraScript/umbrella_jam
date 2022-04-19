@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Parasol Dreamin'"
-run/main_scene="res://scenes/Stage1.tscn"
+config/name="Forgotten Umbrellas' Night Train"
+run/main_scene="res://scenes/title.tscn"
 config/icon="res://icon.png"
 
 [autoload]
